@@ -12,18 +12,21 @@ class Background: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        let imageBack = UIImageView(frame: view.bounds)
+        imageBack.image = UIImage(named: "hotelbackground")
+        imageBack.contentMode = .scaleAspectFill
+        imageBack.clipsToBounds = true
+        imageBack.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.insertSubview(imageBack, at: 0)
+        
+        NSLayoutConstraint.activate([
+            imageBack.topAnchor.constraint(equalTo: view.topAnchor),
+            imageBack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            imageBack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageBack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
