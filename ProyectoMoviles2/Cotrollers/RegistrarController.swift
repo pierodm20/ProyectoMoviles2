@@ -78,7 +78,6 @@ class RegistrarController: UIViewController, UITextFieldDelegate {
                 if let error = error {
                     self?.mensaje(tit: "Error al guardar perfil", men: error.localizedDescription)
                 } else {
-                                // 4. Garantizar que la alerta se presente en el hilo principal
                     DispatchQueue.main.async {
                     let alerta = UIAlertController(title: "¡Éxito!", message: "Usuario registrado correctamente", preferredStyle: .alert)
                         alerta.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
