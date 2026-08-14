@@ -28,6 +28,7 @@ class ViewController: Background {
                 return
             }
                 self?.performSegue(withIdentifier: "inicio", sender: nil)
+                self?.irAlInicio()
             }
         }else{
             mensaje(tit: "Campos vacios" ,men: "Debe escribir correo y contraseña")
@@ -59,6 +60,21 @@ class ViewController: Background {
                 
             }
         default : break
+        }
+    }
+    
+    func irAlInicio(){
+        DispatchQueue.main.async {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            guard let tabBar = storyboard.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController else {return}
+            let nav = UINavigationController(rootViewController: tabBar)
+            
+            if let escena = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let ventana = escena.windows.first{
+                UIView.transition(with: ventana, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                    ventana.rootViewController = nav
+                }, completion: nil)
+            }
         }
     }
 }
