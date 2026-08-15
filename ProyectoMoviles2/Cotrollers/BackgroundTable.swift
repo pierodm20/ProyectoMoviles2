@@ -23,11 +23,13 @@ class BackgroundTable: UITableViewController {
         let imageBack = UIImageView(frame: view.bounds)
         imageBack.image = UIImage(named: "hotel2")
         imageBack.contentMode = .scaleAspectFill
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
+        imageBack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        let blurEffect = UIBlurEffect(style: .systemMaterialDark)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = view.bounds
-        
+        blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         let backContainer = UIView(frame: view.bounds)
+        backContainer.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         backContainer.addSubview(imageBack)
         backContainer.addSubview(blurView)
         
@@ -42,16 +44,21 @@ class BackgroundTable: UITableViewController {
             appearance.configureWithTransparentBackground()
             appearance.backgroundColor = UIColor.black.withAlphaComponent(0.6)
             appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
-            tabBar.tintColor = .white
-            tabBar.unselectedItemTintColor = .systemGray2
 
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance
+        tabBar.backgroundImage = UIImage()
+        tabBar.shadowImage = UIImage()
+        tabBar.isTranslucent = true
+        tabBar.tintColor = .white
+        tabBar.unselectedItemTintColor = .systemGray2
         }
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cell.backgroundColor = UIColor.black.withAlphaComponent(0.25)
-        cell.backgroundColor = .clear
+        cell.backgroundColor = UIColor.black.withAlphaComponent(0.35)
+        cell.contentView.backgroundColor = .clear
+        cell.textLabel?.textColor = .white
+        cell.tintColor = .systemGray4
     }
 
 }
