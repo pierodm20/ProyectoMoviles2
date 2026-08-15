@@ -13,19 +13,17 @@ class Background: UIViewController {
         super.viewDidLoad()
 
         let imageBack = UIImageView(frame: view.bounds)
-        imageBack.image = UIImage(named: "hotelbackground")
+        imageBack.image = UIImage(named: "hotel2")
         imageBack.contentMode = .scaleAspectFill
-        imageBack.clipsToBounds = true
-        imageBack.translatesAutoresizingMaskIntoConstraints = false
+        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
+        let blurView = UIVisualEffectView(effect: blurEffect)
+        blurView.frame = view.bounds
         
-        view.insertSubview(imageBack, at: 0)
+        view.addSubview(imageBack)
+        view.addSubview(blurView)
         
-        NSLayoutConstraint.activate([
-            imageBack.topAnchor.constraint(equalTo: view.topAnchor),
-            imageBack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            imageBack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageBack.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
+        view.sendSubviewToBack(blurView)
+        view.sendSubviewToBack(imageBack)
     }
     
 

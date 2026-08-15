@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class ViewController: Background {
+class ViewController: UIViewController {
 
     @IBOutlet weak var txtCorreoLogin: UITextField!
     @IBOutlet weak var txtContraLogin: UITextField!

@@ -7,12 +7,18 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
-class PerfilViewController: UITableViewController {
+class PerfilViewController: BackgroundTable{
 
+    
+    @IBOutlet weak var lblNombreUsuario: UILabel!
+    
+    let db = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Yo"
+        cargarNombre()
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -21,15 +27,41 @@ class PerfilViewController: UITableViewController {
             case 0:
                 irDatos()
             case 1:
-                irConfiguracion()
+                misReservas()
             case 2:
+                irConfiguracion()
+            case 3:
                 confirmarCerrarSesion()
             default:
                 break
         }
     }
     
+    
+    
+    private func cargarNombre(){
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        db.collection("usuario").document(uid).getDocument { [weak self] (snapshot, error) in
+            if let error = error{
+                self?.mensaje(tit: "Error al obtener datos", men: error.localizedDescription)
+                return
+            }
+            if let datos = snapshot?.data(){
+                let nombre = datos["nombre"] as? String ?? "Sin nombre"
+                DispatchQueue.main.async {
+                   self?.lblNombreUsuario.text = nombre
+                }
+            }
+            
+        }
+        
+    }
+    
     private func irDatos(){
+        
+    }
+    
+    private func misReservas(){
         
     }
     

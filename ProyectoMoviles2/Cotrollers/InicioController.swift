@@ -7,7 +7,7 @@
 
 import UIKit
 
-class InicioController: UIViewController {
+class InicioController: Background {
 
     override func viewDidLoad() {
         super.viewDidLoad()
