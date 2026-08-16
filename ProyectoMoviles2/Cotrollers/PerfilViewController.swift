@@ -58,7 +58,7 @@ class PerfilViewController: BackgroundTable{
     }
     
     private func irDatos(){
-        
+        performSegue(withIdentifier: "datos", sender: nil)
     }
     
     private func misReservas(){
@@ -66,7 +66,7 @@ class PerfilViewController: BackgroundTable{
     }
     
     private func irConfiguracion(){
-        
+        performSegue(withIdentifier: "configuracion", sender: nil)
     }
     
     private func confirmarCerrarSesion()
@@ -96,6 +96,18 @@ class PerfilViewController: BackgroundTable{
         }catch let error{
             self.mensaje(tit: "Error al cerrar sesion", men: error.localizedDescription)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch(segue.identifier) {
+        case "datos" :
+            segue.destination as? DatosViewController
+        case "configuracion":
+            segue.destination as? ConfiguracionViewController
+        default :
+            break
+        }
+        
     }
     
     func mensaje(tit:String, men:String){

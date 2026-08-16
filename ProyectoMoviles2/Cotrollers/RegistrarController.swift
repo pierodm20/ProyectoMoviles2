@@ -3,11 +3,12 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-class RegistrarController: UIViewController, UITextFieldDelegate {
+class RegistrarController: Background, UITextFieldDelegate {
    
     @IBOutlet weak var txtnNombreReg: UITextField!
     @IBOutlet weak var txtApellidoReg: UITextField!
     @IBOutlet weak var txtCorreoReg: UITextField!
+    @IBOutlet weak var txtDni: UITextField!
     @IBOutlet weak var txtTelefonoReg: UITextField!
     @IBOutlet weak var txtContraseñaReg: UITextField!
     @IBOutlet weak var txtRepetirReg: UITextField!
@@ -34,11 +35,12 @@ class RegistrarController: UIViewController, UITextFieldDelegate {
         let nom = txtnNombreReg.text ?? ""
         let ape = txtApellidoReg.text ?? ""
         let correo = txtCorreoReg.text ?? ""
+        let dni = txtDni.text ?? ""
         let tef = txtTelefonoReg.text ?? ""
         let contra = txtContraseñaReg.text ?? ""
         let rep = txtRepetirReg.text ?? ""
         
-        guard (!nom.isEmpty && !ape.isEmpty && !correo.isEmpty && !tef.isEmpty && !contra.isEmpty && !rep.isEmpty) else{
+        guard (!nom.isEmpty && !ape.isEmpty && !correo.isEmpty && !dni.isEmpty && !tef.isEmpty && !contra.isEmpty && !rep.isEmpty) else{
             mensaje(tit: "Campos vacios", men: "Llenar todos los campos")
             return
         }
@@ -46,6 +48,10 @@ class RegistrarController: UIViewController, UITextFieldDelegate {
         if(tef.count < 9){
             mensaje(tit: "Telefono invalido", men: "El telefono tiene que tener mas de 9 digitos")
             return
+        }
+        
+        if(dni.count != 8){
+            mensaje(tit: "Formato de dni incorrecto", men: "El dni debe tener 8 digitos")
         }
         
         if (contra.count < 6) {
@@ -70,6 +76,7 @@ class RegistrarController: UIViewController, UITextFieldDelegate {
                 "nombre" : nom,
                 "apellido" : ape,
                 "correo" : correo,
+                "dni" : dni,
                 "telefono" : tef,
                 "fechaCreacion" : Date()
             ]

@@ -8,7 +8,7 @@
 import UIKit
 
 class CamposDeTexto: UITextField {
-    var padding = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14)
+    private let input = CALayer()
 
         override func awakeFromNib() {
             super.awakeFromNib()
@@ -16,25 +16,26 @@ class CamposDeTexto: UITextField {
         }
 
         private func configurarEstilo() {
-            // 2. Aquí aplicas tu redondeo personalizado
-            self.layer.cornerRadius = 10 // Cambia el radio según tu diseño
-            self.layer.masksToBounds = true
+            self.borderStyle = .none
+            self.backgroundColor = .clear
+            self.textColor = .label
+            if let place = self.placeholder{
+                self.attributedPlaceholder = NSAttributedString(string: place, attributes: [.foregroundColor: UIColor.systemGray])
+            }
             
-            // Si le agregas bordes personalizados:
-            // self.layer.borderWidth = 1
-            // self.layer.borderColor = UIColor.systemBlue.cgColor
+            input.backgroundColor = UIColor.black.withAlphaComponent(0.8).cgColor
+            layer.addSublayer(input)
         }
-
-        // 3. Sobrescribir los rectángulos donde se dibuja el texto
-        override func textRect(forBounds bounds: CGRect) -> CGRect {
-            return bounds.inset(by: padding)
-        }
-
-        override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
-            return bounds.inset(by: padding)
-        }
-
-        override func editingRect(forBounds bounds: CGRect) -> CGRect {
-            return bounds.inset(by: padding)
-        }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        input.frame = CGRect(
+            x:0,
+            y:self.frame.height - 1.5,
+            width: self.frame.width,
+            height: 1.5
+        )
+        
+    }
+       
 }

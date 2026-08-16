@@ -24,7 +24,7 @@ class BackgroundTable: UITableViewController {
         imageBack.image = UIImage(named: "hotel2")
         imageBack.contentMode = .scaleAspectFill
         imageBack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        let blurEffect = UIBlurEffect(style: .systemMaterialDark)
+        let blurEffect = UIBlurEffect(style: .regular)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = view.bounds
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -43,7 +43,7 @@ class BackgroundTable: UITableViewController {
             let appearance = UITabBarAppearance()
             appearance.configureWithTransparentBackground()
             appearance.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-            appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialDark)
+            appearance.backgroundEffect = UIBlurEffect(style: .regular)
 
             tabBar.standardAppearance = appearance
             tabBar.scrollEdgeAppearance = appearance

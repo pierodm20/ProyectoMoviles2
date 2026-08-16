@@ -20,7 +20,7 @@ class Background: UIViewController {
         imageBack.contentMode = .scaleAspectFill
         imageBack.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
-        let blurEffect = UIBlurEffect(style: .systemThinMaterialDark)
+        let blurEffect = UIBlurEffect(style: .regular)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.frame = view.bounds
         blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
