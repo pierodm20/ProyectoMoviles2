@@ -41,6 +41,7 @@ class ViewController: Background {
     }
     
     @IBAction func btnOlvidarLogin(_ sender: UIButton) {
+        performSegue(withIdentifier: "recuperarContra", sender: nil)
     }
     
     func mensaje(tit:String, men:String){
@@ -52,13 +53,11 @@ class ViewController: Background {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch (segue.identifier){
         case "inicio" :
-            if let inicio = segue.destination as? InicioController{
-                
-            }
+            segue.destination as? InicioController
         case "registrarUsuario" :
-            if let registrar = segue.destination as? RegistrarController{
-                
-            }
+            segue.destination as? RegistrarController
+        case "recuperarContra":
+            segue.destination as?  RecuperarContrasenaViewController
         default : break
         }
     }

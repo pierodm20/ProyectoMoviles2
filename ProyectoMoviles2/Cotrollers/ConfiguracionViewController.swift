@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ConfiguracionViewController: Background, UITableViewDataSource, UITableViewDelegate {
     
@@ -123,6 +124,13 @@ class ConfiguracionViewController: Background, UITableViewDataSource, UITableVie
             header.textLabel?.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         }
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let item = secciones[indexPath.section].opciones[indexPath.row]
+        if(item.titulo == "Cambiar Contraseña"){
+            alertaEnviarCorreo()
+        }
+    }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.backgroundColor = UIColor.black.withAlphaComponent(0.35)
@@ -130,6 +138,31 @@ class ConfiguracionViewController: Background, UITableViewDataSource, UITableVie
         cell.textLabel?.textColor = .white
         cell.detailTextLabel?.textColor = .systemGray2
         cell.tintColor = .white
+    }
+    
+    func alertaEnviarCorreo(){
+        guard let correo = Auth.auth().currentUser?.email else{
+            mensaje(tit: "Error", men: "No se encontro correo asociado")
+            return
+        }
+        let alerta = UIAlertController(title: "Recuperar contraseña", message: "¿Deseas enviar un correo?", preferredStyle: .alert)
+        let enviar = UIAlertAction(title: "Enviar", style: .default){ [weak self] _ in
+            Auth.auth().sendPasswordReset(withEmail: correo){error in
+                DispatchQueue.main.async {
+                    if let error = error{
+                        self?.mensaje(tit: "Error", men: error.localizedDescription)
+                    }else{
+                        self?.mensaje(tit: "!Correo enviado!", men: "Revisa tu bandeja")
+                    }
+                }
+            }
+        }
+        let cancelar = UIAlertAction(title: "Cancelar", style: .cancel)
+        
+        alerta.addAction(enviar)
+        alerta.addAction(cancelar)
+        
+        present(alerta, animated: true)
     }
     
     func mensaje(tit:String, men:String){
